@@ -13,22 +13,33 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RegisterForm extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+//        $builder
+//            ->add('email', EmailType::class)
+//            ->add('username', TextType::class)
+//            ->add('plainPassword', RepeatedType::class, array(
+//                'type' => PasswordType::class,
+//                'first_options' => array('label' => 'Password'),
+//                'second_options' => array('label' => 'Repeat Password'),
+//            ));
         $builder
-            ->add('email', EmailType::class)
-            ->add('username', TextType::class)
-            ->add('plainPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'first_options' => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
-            ));
+            ->add("email", EmailType::class)
+            ->add("username", TextType::class)
+            ->add("plainPassword", RepeatedType::class, [
+                "type" => PasswordType::class,
+                "invalid_message" => "Passwords does not match"
+            ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
-            'data_class' => User::class,
-        ));
+        $resolver->setDefaults([
+            "data_class" => User::class,
+            "validation_groups" => [
+                "Default",
+                "Registration"
+            ]
+        ]);
     }
 }

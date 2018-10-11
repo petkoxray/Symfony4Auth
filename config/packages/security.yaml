@@ -17,6 +17,8 @@ security:
         main:
             anonymous: ~
             form_login:
+                username_parameter: "login_form[_username]"
+                password_parameter: "login_form[_password]"
                 login_path: login
                 check_path: login
             logout:

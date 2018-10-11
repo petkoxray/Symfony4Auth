@@ -1,8 +1,20 @@
-{{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+{% extends 'base.html.twig' %}
 
-<button type="submit">Register!</button>
-{{ form_end(form) }}
+{% block content %}
+    <div class="col-md-6 offset-3 content-section">
+        {{ form_start(register_form) }}
+
+        {{ form_row(register_form.email) }}
+        {{ form_row(register_form.username) }}
+        {{ form_row(register_form.plainPassword.first, {
+            label: "Password"
+        }) }}
+        {{ form_row(register_form.plainPassword.second, {
+            label: "Repeat Password"
+        }) }}
+
+        <button class="btn btn-primary fa fa-thumbs-up" formnovalidate>Register</button>
+
+        {{ form_end(register_form) }}
+    </div>
+{% endblock %}
